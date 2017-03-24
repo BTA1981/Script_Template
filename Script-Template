@@ -4,8 +4,6 @@
   <Overview of script>
 .DESCRIPTION
   <Brief description of script>
-.PARAMETER <Parameter_Name>
-  <Brief description of parameter input required. Repeat this attribute if required>
 .INPUTS
   <Inputs if any, otherwise state None>
 .OUTPUTS
@@ -15,16 +13,30 @@
   Author:         <Name>
   Creation Date:  <Date>
   Purpose/Change: Initial script development
+.PREREQUISITES
+  Module x
+
 .EXAMPLE
   <Example goes here. Repeat this attribute for more than one example>
   <Example explanation goes here>
 #>
 
+param (
+        [Parameter(Mandatory=$True)] # 
+        [string]$Param1,
+
+        [Parameter(Mandatory=$True)] # 
+        [string]$Param2 # 
+
+ ) # End Param
+
 #---------------------------------------------------------[Initialisations]--------------------------------------------------------
+[string]$DateStr = (Get-Date).ToString("s").Replace(":","-") # +"_" # Easy sortable date string    
+Start-Transcript ('c:\windows\temp\' + $DateStr  + '_<LoggingName>') -Force # Start logging
 
 #Set Error Action to Silently Continue
 $ErrorActionPreference = 'SilentlyContinue'
-
+If (!(Get-Module <module>) { Import-Module <module>}
 #----------------------------------------------------------[Declarations]----------------------------------------------------------
 
 #Any Global Declarations go here
@@ -46,3 +58,6 @@ Function <FunctionName> {
 #-----------------------------------------------------------[Execution]------------------------------------------------------------
 
 #Script Execution goes here
+
+
+Stop-Transcript
